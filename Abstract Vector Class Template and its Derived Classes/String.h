@@ -3,8 +3,8 @@
 #define MY_STRING_H
 #include <iostream>
 using namespace std;
-
-class String
+#include "vec.h"
+class String : public basic_vec <char>
 {
 public:
 	String(const char* s = "");						// ¹¹Ôìº¯Êý
