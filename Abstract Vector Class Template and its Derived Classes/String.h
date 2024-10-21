@@ -7,14 +7,20 @@ using namespace std;
 class String : public basic_vec <char>
 {
 public:
-	String(const char* s = "");						// 构造函数
+	String(const char* str = "");						// 构造函数
 	String(const String& Str, int pos, int n);
 	String(const char* s, int n);
 	String(int n, char c);
 	String(const String& Str);						// 拷贝构造函数
 	String& operator=(const String& Str);			// 必须为成员函数
-	virtual ~String();								// 析构函数（虚函数）
+	 ~String();								// 析构函数（虚函数）
 
+	//继承多态性
+	void Input(istream& in);
+	void Output(ostream& out) const;
+	
+	
+	//功能函数
 	String& insert(int p0, const char* s);			// 将 s 所指向的字符串插入在本串位置 p0 之前
 	String substr(int pos, int n) const;			// 取子串，取本串位置 pos 开始的 n 个字符，构成新对象
 	int find(const String& Str) const;				// 查找并返回 Str 在本串中第一次出现的位置
@@ -25,6 +31,7 @@ public:
 	String& append(const char* s);                  //向字符串的末尾添加字符
 	String& erase(int pos, int n);                  //删除从字符串中的位置pos开始的往后n个字符
 
+	//运算符函数
 	char& operator[](int index);					// 方括号（下标）运算符。引用返回可作左值、右值
 	friend String operator+(const String& str1, const String& Str2); // 友元函数，字符串拼接
 	String& operator+=(const String& Str);			// 字符串拼接及赋值

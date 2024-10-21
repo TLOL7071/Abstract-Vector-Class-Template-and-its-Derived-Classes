@@ -5,44 +5,96 @@ using namespace std;
 template<typename T>
 class basic_vec{
 protected:
-    T *ptr;
-    T *start;
-    T *end;
-    //新加了定位指针
+    T *ptr;  
     int size;
-    int capacity;
-    basic_vec(int cap);//初始化
-    basic_vec();
-
-    virtual input(istream&)=0 const;
-    virtual output(ostream&)=0 const;//纯虚函数，记得在派生类中重新定义
+ 
 public:
+    basic_vec(int num = 0, const T* x = NULL);	
+    basic_vec(const basic_vec& v);				
+    virtual ~basic_vec();
+    basic_vec& operator=(const basic_vec& v);	
+
     int Size();
-    int Capacity();
+	void resize(int num);
     T operator[](int);
+    virtual void Input(istream& in) = 0;
+    virtual void Output(ostream& out) const = 0 ;//纯虚函数，记得在派生类中重新定义
 };
 
-template<typename T>
-basic_vec<T>::basic_vec(int cap):size(0),capacity(cap),ptr(new T[capacity]),start(ptr),end(ptr){}
-//构造函数，记得在派生类的构造函数中显式的调用基类构造函数（这样做最好。如果你明白你在做什么，就随你来）
-template<typename T>
-basic_vec<T>::basic_vec():size(0),capacity(0),ptr(nullptr),start(ptr),end(ptr){}
-//默认构造函数
+template <typename T>
+basic_vec<T>::basic_vec(int num, const T* x)	
+{
+	size = (num > 0) ? num : 0;
+	ptr = NULL;
+	if (size > 0)
+	{
+		ptr = new T[size];
+		for (int i = 0; i < size; i++)
+			ptr[i] = (x == NULL) ? 0 : x[i];
+	}
+}
+
+template <typename T>
+basic_vec<T>::basic_vec(const basic_vec<T>& v)	
+{
+	size = 0;
+	ptr = NULL;
+	*this = v;
+}
+
+template <typename T>
+basic_vec<T>::~basic_vec()						
+{
+	size = 0;
+	if (ptr != NULL) delete[] ptr;
+}
+
+template <typename T>
+basic_vec<T>& basic_vec<T>::operator=(const basic_vec<T>& v)
+{
+	if (size != v.size)
+	{
+		if (ptr != NULL) delete[] ptr;
+		ptr = new T[size = v.size];
+	}
+	for (int i = 0; i < size; i++)
+		ptr[i] = v.ptr[i];
+	return *this;
+}
+
 
 template<typename T>
 int basic_vec<T>::Size(){
     return size;
 }
 
-template<typename T>
-int basic_vec<T>::Capacity(){
-    return capacity;
+template <typename T>
+void basic_vec<T>::resize(int num)			
+{
+	if (num < 0 || num == size)
+		return;
+	else if (num == 0)
+	{
+		if (ptr != NULL) delete[] ptr;
+		ptr = NULL;
+		size = 0;
+	}
+	else
+	{
+		T* temp = ptr;
+		ptr = new T[num];
+		for (int i = 0; i < num; i++)
+			ptr[i] = (i < size) ? temp[i] : 0;	// 尽量保留原有数据
+		size = num;
+		delete[] temp;
+	}
 }
+
 
 template<typename T>
 T basic_vec<T>::operator[](int pos){
-    if(pos>=size)
+    if(pos>=size || pos<0)
         throw "yuejie";
-    return *(start+pos);
+    return ptr[pos];
 }
 #endif
