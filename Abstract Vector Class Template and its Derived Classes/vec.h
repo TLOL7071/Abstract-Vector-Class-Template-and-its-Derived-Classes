@@ -4,7 +4,9 @@
 using namespace std;
 template<typename T>
 class basic_vec{
-
+protected:
+    T *ptr;  
+    int size;
  
 public:
     basic_vec(int num = 0, const T* x = NULL);	
@@ -14,14 +16,9 @@ public:
 
     int Size();
 	void resize(int num);
-    T & operator[](int);
+    T operator[](int);
     virtual void Input(istream& in) = 0;
     virtual void Output(ostream& out) const = 0 ;//纯虚函数，记得在派生类中重新定义
-
-protected:
-	int size;
-	T* ptr;
-
 };
 
 template <typename T>
@@ -40,6 +37,8 @@ basic_vec<T>::basic_vec(int num, const T* x)
 template <typename T>
 basic_vec<T>::basic_vec(const basic_vec<T>& v)	
 {
+	size = 0;
+	ptr = NULL;
 	*this = v;
 }
 
@@ -93,23 +92,9 @@ void basic_vec<T>::resize(int num)
 
 
 template<typename T>
-T & basic_vec<T>::operator[](int pos){
+T basic_vec<T>::operator[](int pos){
     if(pos>=size || pos<0)
         throw "yuejie";
     return ptr[pos];
-}
-
-template <typename T>
-ostream& operator<<(ostream& out, const basic_vec<T>& v)	// 不必是友元函数
-{
-	v.Output(out);
-	return out;
-}
-
-template <typename T>
-istream& operator>>(istream& in, basic_vec<T>& v)			// 不必是友元函数
-{
-	v.Input(in);
-	return in;
 }
 #endif
