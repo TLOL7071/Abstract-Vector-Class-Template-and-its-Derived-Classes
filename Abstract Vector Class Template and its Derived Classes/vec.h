@@ -40,7 +40,14 @@ basic_vec<T>::basic_vec(int num, const T* x)
 template <typename T>
 basic_vec<T>::basic_vec(const basic_vec<T>& v)	
 {
-	*this = v;
+	if ((size = v.size) == 0)
+		ptr = NULL;
+	else
+	{
+		ptr = new T[size];
+		for (int i = 0; i < size; i++)
+			ptr[i] = v.ptr[i];
+	}
 }
 
 template <typename T>
