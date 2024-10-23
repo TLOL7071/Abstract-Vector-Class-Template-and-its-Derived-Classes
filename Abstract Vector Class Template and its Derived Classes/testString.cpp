@@ -13,7 +13,7 @@ void testStringFunctions() {
         cout << "2. Êä³ö×Ö·û´®" << endl;
         cout << "3. ²åÈë×Ö·û´®" << endl;
         cout << "4. ²éÕÒ×Ö·û´®" << endl;
-        cout << "5. ×Ö·û´®Æ´½Ó" << endl;
+        //cout << "5. ×Ö·û´®Æ´½Ó" << endl;
         cout << "6. Çå¿Õ×Ö·û´®" << endl;
         cout << "0. ÍË³ö" << endl;
         cout << "ÊäÈëÄãµÄÑ¡Ôñ: ";
@@ -61,7 +61,7 @@ void testStringFunctions() {
             break;
         }
 
-        case 5: {
+        /*case 5: {
             char appendStr[1024];
             cout << "ÇëÊäÈëÒªÆ´½ÓµÄ×Ö·û´®: ";
             cin >> appendStr;
@@ -70,7 +70,7 @@ void testStringFunctions() {
             str1.Output(cout);
             cout << endl;
             break;
-        }
+        }*/
 
         case 6:
             str1.clear();
@@ -88,12 +88,3 @@ void testStringFunctions() {
     } while (choice != 0);
 }
 
-int main() {
-    testStringFunctions();
-	/*string str1("hello");
-	string str2("world");
-	string str3 = str1 + str2;
-	cout << str3 << endl;*/
-
-    return 0;
-}

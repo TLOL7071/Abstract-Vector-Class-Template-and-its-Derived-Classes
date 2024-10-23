@@ -140,7 +140,9 @@ String operator+(const String& Str1, const String& Str2) {
 	temp.ptr = new char[Str1.size + Str2.size + 1];
 	temp.size = Str1.size + Str2.size;
 	strcpy(temp.ptr, Str1.ptr);
+	cout<<temp.ptr << endl;
 	strcat(temp.ptr, Str2.ptr);
+	cout << temp.ptr << endl;
 	return temp;
 }
 
