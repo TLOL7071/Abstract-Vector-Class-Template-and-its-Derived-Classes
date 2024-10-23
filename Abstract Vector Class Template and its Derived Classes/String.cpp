@@ -62,13 +62,14 @@ void String::Output(ostream& out) const
 
 String& String::insert(int p0, const char* s)
 {
-	int n = strlen(ptr);
+	int n = size;
 	if (p0 > n) p0 = n;
-	char* p = new char[strlen(ptr) + strlen(s) + 1];
+	char* p = new char[size + strlen(s) + 1];
 	strncpy(p, ptr, p0);		// 原字符串内容的第一部分
 	p[p0] = '\0';
 	strcat(p, s);				// 插入的部分
-	strcat(p, ptr + p0);			// 原字符串的剩余部分
+	strcat(p, ptr + p0);		// 原字符串的剩余部分
+	size = size + strlen(s);
 	delete[] ptr;				// 释放原字符串
 	ptr = p;					// 保存新字符串的首地址
 	return *this;
@@ -78,8 +79,8 @@ String& String::insert(int p0, const char* s)
 int String::find(const String& Str) const
 {
 	int i, j, m, n, flag;
-	m = strlen(Str.ptr);
-	n = strlen(ptr);
+	m = Str.size;
+	n = size;
 	if (m > n) return -1;
 	for (i = 0; i < n - m; i++)
 	{
@@ -98,7 +99,7 @@ int String::find(const String& Str) const
 
 int String::length() const
 {
-	return strlen(ptr);
+	return size;
 }
 
 const char* String::c_str()
@@ -117,25 +118,32 @@ void String::clear()
 {
 	*this = "\0";
 }
+String& String::append(const char* s) {
+	if (s == nullptr) return *this; // Handle null input
 
-String& String::append(const char* s)
-{
-	String temp(s);
-	*this += temp;
+	int new_size = size + strlen(s);
+	char* new_ptr = new char[new_size + 1]; // Allocate new memory
+
+	strcpy(new_ptr, ptr); // Copy the existing string
+	strcat(new_ptr, s);   // Append the new string
+
+	delete[] ptr; // Free the old memory
+	ptr = new_ptr; // Update the pointer to the new memory
+	size = new_size; // Update the size
+
 	return *this;
 }
 
 
-
-String operator+(const String& Str1, const String& Str2)
-{
+String operator+(const String& Str1, const String& Str2) {
 	String temp;
-	temp.ptr = new char[strlen(Str1.ptr) + strlen(Str2.ptr) + 1];
-	// 自动扩展资源空间
+	temp.ptr = new char[Str1.size + Str2.size + 1];
+	temp.size = Str1.size + Str2.size;
 	strcpy(temp.ptr, Str1.ptr);
 	strcat(temp.ptr, Str2.ptr);
 	return temp;
 }
+
 
 String& String::operator+=(const String& Str)
 {
