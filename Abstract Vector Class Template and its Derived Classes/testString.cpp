@@ -89,11 +89,11 @@ void testStringFunctions() {
 }
 
 int main() {
-    //testStringFunctions();
-	String str1("hello");
-	String str2("world");
-	String str3 = str1 + str2;
-	cout << str3 << endl;
+    testStringFunctions();
+	/*string str1("hello");
+	string str2("world");
+	string str3 = str1 + str2;
+	cout << str3 << endl;*/
 
     return 0;
 }

@@ -118,27 +118,32 @@ void String::clear()
 {
 	*this = "\0";
 }
+String& String::append(const char* s) {
+	if (s == nullptr) return *this; // Handle null input
 
-String& String::append(const char* s)
-{
-	String temp(s);
-	*this += temp;
+	int new_size = size + strlen(s);
+	char* new_ptr = new char[new_size + 1]; // Allocate new memory
+
+	strcpy(new_ptr, ptr); // Copy the existing string
+	strcat(new_ptr, s);   // Append the new string
+
+	delete[] ptr; // Free the old memory
+	ptr = new_ptr; // Update the pointer to the new memory
+	size = new_size; // Update the size
+
 	return *this;
 }
 
 
-
-String operator+(const String& Str1, const String& Str2)
-{
+String operator+(const String& Str1, const String& Str2) {
 	String temp;
-	temp.size = Str1.size + Str2.size;
 	temp.ptr = new char[Str1.size + Str2.size + 1];
-	// 自动扩展资源空间
-	
+	temp.size = Str1.size + Str2.size;
 	strcpy(temp.ptr, Str1.ptr);
 	strcat(temp.ptr, Str2.ptr);
 	return temp;
 }
+
 
 String& String::operator+=(const String& Str)
 {
