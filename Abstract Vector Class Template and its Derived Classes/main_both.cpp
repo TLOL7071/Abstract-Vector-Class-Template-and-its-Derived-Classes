@@ -1,59 +1,78 @@
-#include "String.h"
+#include "string.h"
 #include "Vector.h"
 #include <iostream>
+void testduotai();
 using namespace std;
 int main() {
-	/*int choice;
-
-	cout << "请选择要测试的类：" << endl;
-	cout << "1. String" << endl;
-	cout << "2. Vector" << endl;
-	cout << "输入你的选择: ";
-
-	cin >> choice;
-	
-	switch (choice) {
-	case 1:
-		testStringFunctions();
-		break;
-	case 2:
-		testVector();
-		break;
-	}
-	cout << "多态性测试" << endl;
-	cout << "String类测试" << endl;
-	basic_vec<char> *op;
-	String str1 = "hello";
-
-	op=&str1;
-	str1.Output(cout);
-	op->Output(cout);
-
-	cout << endl;
-	cout << str1.Size() << endl;
-	str1.resize(2);
-	str1.Output(cout);
-	cout << str1.Size() << endl;
-	cout << "请输入字符串：" << endl;
-	str1.Input(cin);
-	str1.Output(cout);
-	cout << endl;
-
-	cout << "Vector类测试" << endl;
-	Vector<char> vec;
-	cout << "请输入字符串：" << endl;
-	vec.Input(cin);
-	vec.Output(cout);
-	cout << vec.Size() << endl;
-	vec.resize(2);
-	vec.Output(cout);
-	cout << vec.Size() << endl;
-
-	op = &vec;
-	op->Output(cout);*/
-	String str1 = "hello";
-	String str2 = "world";
-	cout<< str1 + str2;
-	//cout << str3[8] << endl;
-	return 0;
+    int choice = 1;
+    while (choice != 0) {
+        cout << "1、测试String类" << endl;
+        cout << "2、测试Vector类" << endl;
+        cout << "3、测试多态性" << endl;
+        cout << "0、退出程序" << endl;
+        input(choice);
+        switch (choice)
+        {
+        case 1:testString();
+            break;
+        case 2:testVector();
+            break;
+        case 3:testduotai();
+            break;
+        default:cout << "无效输入，请重输" << endl;
+            break;
+        case 0:cout << "退出程序" << endl;
+        }
+    }
+    return 0;
+}
+void testduotai() {
+    cout << "string类多态测试:" << endl;
+    cout << "使用基类指针调用Input:" << endl;
+    basic_vec<char>* p;
+    String str1;
+    p = &str1;
+    p->Input(cin);
+    cout << "调用Output:" << endl;
+    p->Output(cout);
+    cout << endl;
+    cout << "Vector类多态测试:" << endl;
+    Vector<int> vecInt0;
+    Vector<double> vecDouble0;
+    Vector<char> vecChar0;
+    for (int i = 0; i < 10; ++i) {
+        vecInt0.push(i);
+        vecDouble0.push(i * 1.1);
+        vecChar0.push('A' + i);
+    }
+    basic_vec<int>* pVecInt0 = &vecInt0;
+    basic_vec<double>* pVecDouble0 = &vecDouble0;
+    basic_vec<char>* pVecChar0 = &vecChar0;
+    cout << "对int类型的Output: ";
+    pVecInt0->Output(cout);
+    cout << endl;
+    cout << "对double类型的Output: ";
+    pVecDouble0->Output(cout);
+    cout << endl;
+    cout << "对char类型的Output: ";
+    pVecChar0->Output(cout);
+    cout << endl;
+    Vector<int> vecInt10;
+    Vector<double> vecDouble10;
+    Vector<char> vecChar10;
+    cout << "对int类型的Input: ";
+    pVecInt0 = &vecInt10;
+    pVecInt0->Input(cin);
+    pVecInt0->Output(cout);
+    cout << endl;
+    cout << "对double类型的Input: ";
+    pVecDouble0 = &vecDouble10;
+    pVecDouble0->Input(cin);
+    pVecDouble0->Output(cout);
+    cout << endl;
+    pVecChar0 = &vecChar10;
+    cout << "对char类型的Output: ";
+    pVecChar0->Input(cin);
+    pVecChar0->Output(cout);
+    cout << endl;
 }

@@ -68,6 +68,7 @@ String& String::insert(int p0, const char* s)
 	strncpy(p, ptr, p0);		// 原字符串内容的第一部分
 	p[p0] = '\0';
 	strcat(p, s);				// 插入的部分
+	p[p0 + strlen(s)] = '\0';
 	strcat(p, ptr + p0);		// 原字符串的剩余部分
 	size = size + strlen(s);
 	delete[] ptr;				// 释放原字符串
@@ -125,6 +126,7 @@ String& String::append(const char* s) {
 	char* new_ptr = new char[new_size + 1]; // Allocate new memory
 
 	strcpy(new_ptr, ptr); // Copy the existing string
+	new_ptr[size] = '\0'; // Null-terminate the new string
 	strcat(new_ptr, s);   // Append the new string
 
 	delete[] ptr; // Free the old memory
@@ -134,18 +136,17 @@ String& String::append(const char* s) {
 	return *this;
 }
 
-
 String operator+(const String& Str1, const String& Str2) {
 	String temp;
 	temp.ptr = new char[Str1.size + Str2.size + 1];
 	temp.size = Str1.size + Str2.size;
 	strcpy(temp.ptr, Str1.ptr);
-	cout<<temp.ptr << endl;
+	temp.ptr[Str1.size] = '\0';
+
 	strcat(temp.ptr, Str2.ptr);
-	cout << temp.ptr << endl;
+
 	return temp;
 }
-
 
 String& String::operator+=(const String& Str)
 {
@@ -221,4 +222,15 @@ String& String::trim()
 		ptr = temp;
 	}
 	return *this;
+}
+
+void input(int& op) {
+	std::cin >> op;
+	while (std::cin.fail())                //防止错误输入。
+	{
+		std::cout << "Invalid input. Please enter a number." << endl;
+		std::cin.clear();            // 清理错误状态位
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // 丢弃无效输入
+		std::cin >> op;
+	}
 }

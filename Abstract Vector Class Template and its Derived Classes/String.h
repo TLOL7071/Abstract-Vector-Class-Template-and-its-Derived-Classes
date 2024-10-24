@@ -41,7 +41,8 @@ public:
 	String& trim();								// É¾³ý×Ö·û´®Ç°ºóµÄ¿Õ°×£¨¿Õ¸ñ¡¢ÖÆ±í£©×Ö·û
 };
 
-void testStringFunctions();
+void testString();
+void input(int& op);
 #endif
 
 #pragma once

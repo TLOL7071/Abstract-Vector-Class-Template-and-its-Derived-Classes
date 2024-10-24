@@ -17,6 +17,7 @@ public:
     T & operator[](int);
     virtual void Input(istream& in) = 0;
     virtual void Output(ostream& out) const = 0 ;//纯虚函数，记得在派生类中重新定义
+	
 
 protected:
 	int size;
@@ -54,7 +55,7 @@ basic_vec<T>::basic_vec(const basic_vec<T>& v)
 template <typename T>
 basic_vec<T>::~basic_vec()						
 {
-	size = 0;
+	
 	if (ptr != NULL) delete[] ptr;
 }
 
