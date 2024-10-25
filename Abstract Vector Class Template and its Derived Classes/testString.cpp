@@ -81,7 +81,9 @@ void test2() {
     str3.Output(cout);
 	cout << endl;
 
-	
+    cout << "²âÊÔappendº¯Êı£º" << endl;
+    str1.append("world");
+    cout << "str1£º" << str1 << endl;
 
 }
 void test3() {

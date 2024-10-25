@@ -17,7 +17,7 @@ public:
     T & operator[](int);
     virtual void Input(istream& in) = 0;
     virtual void Output(ostream& out) const = 0 ;//纯虚函数，记得在派生类中重新定义
-	
+
 
 protected:
 	int size;

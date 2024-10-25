@@ -60,17 +60,27 @@ void String::Output(ostream& out) const
 
 
 
-String& String::insert(int p0, const char* s)
+String& String::insert(int p0, const char* s)// 将 s 所指向的字符串插入在本串位置 p0（下标为p0）之前
 {
 	int n = size;
+	int new_size = size + strlen(s);
 	if (p0 > n) p0 = n;
-	char* p = new char[size + strlen(s) + 1];
-	strncpy(p, ptr, p0);		// 原字符串内容的第一部分
-	p[p0] = '\0';
-	strcat(p, s);				// 插入的部分
-	p[p0 + strlen(s)] = '\0';
-	strcat(p, ptr + p0);		// 原字符串的剩余部分
-	size = size + strlen(s);
+	if (p0 < 0) p0 = 0;
+	char* p = new char[new_size + 1];
+	for (int i = 0; i < p0; i++)
+	{
+		p[i] = ptr[i];	
+	}
+	for (int i = p0; i < p0 + strlen(s); i++)
+	{
+		p[i] = s[i - p0];
+	}
+	for (int i = p0 + strlen(s); i < new_size; i++)
+	{
+		p[i] = ptr[i - strlen(s)];
+	}
+	p[new_size] = '\0';
+
 	delete[] ptr;				// 释放原字符串
 	ptr = p;					// 保存新字符串的首地址
 	return *this;
@@ -120,30 +130,41 @@ void String::clear()
 	*this = "\0";
 }
 String& String::append(const char* s) {
-	if (s == nullptr) return *this; // Handle null input
+	if (s == nullptr) return *this; 
 
 	int new_size = size + strlen(s);
-	char* new_ptr = new char[new_size + 1]; // Allocate new memory
+	char* new_ptr = new char[new_size + 1];
+	for (int i = 0; i < size; i++)
+	{
+		new_ptr[i] = ptr[i];
+	}
+	for (int i = size; i < new_size; i++)
+	{
+		new_ptr[i] = s[i - size];
+	}
+	new_ptr[new_size] = '\0';
 
-	strcpy(new_ptr, ptr); // Copy the existing string
-	new_ptr[size] = '\0'; // Null-terminate the new string
-	strcat(new_ptr, s);   // Append the new string
-
-	delete[] ptr; // Free the old memory
-	ptr = new_ptr; // Update the pointer to the new memory
-	size = new_size; // Update the size
+	delete[] ptr; 
+	ptr = new_ptr; 
+	size = new_size;
 
 	return *this;
 }
 
-String operator+(const String& Str1, const String& Str2) {
+String String :: operator+(const String& Str) {
 	String temp;
-	temp.ptr = new char[Str1.size + Str2.size + 1];
-	temp.size = Str1.size + Str2.size;
-	strcpy(temp.ptr, Str1.ptr);
-	temp.ptr[Str1.size] = '\0';
-
-	strcat(temp.ptr, Str2.ptr);
+	int new_size = size + Str.size;
+	temp.ptr = new char[ new_size+ 1];
+	temp.size = size + Str.size;
+	for(int i=0;i < size;i++)
+	{
+		temp.ptr[i] = ptr[i];
+	}
+	for (int i = size; i < new_size; i++)
+	{
+		temp.ptr[i] = Str.ptr[i - size];
+	}
+	temp.ptr[new_size] = '\0';
 
 	return temp;
 }
