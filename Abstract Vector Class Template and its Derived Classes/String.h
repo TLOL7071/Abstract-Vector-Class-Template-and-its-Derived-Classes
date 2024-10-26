@@ -39,7 +39,7 @@ public:
 	friend bool operator<=(const String& Str1, const String& Str2);
 	
 	// ���ӵĳ�Ա����
-	//friend istream& getline(istream& in, String& Str, int num, char delim);
+	friend istream& getline(istream& in, String& Str, int num, char delim);
 	String& trim();								// ɾ���ַ���ǰ��Ŀհף��ո��Ʊ����ַ�
 };
 
