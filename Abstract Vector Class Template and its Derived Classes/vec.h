@@ -20,6 +20,7 @@ public:
 	virtual basic_vec& operator+(const basic_vec<T> & vv)=0;
 
 
+
 protected:
 	int size;
 	T* ptr;
@@ -56,7 +57,7 @@ basic_vec<T>::basic_vec(const basic_vec<T>& v)
 template <typename T>
 basic_vec<T>::~basic_vec()						
 {
-	size = 0;
+	
 	if (ptr != NULL) delete[] ptr;
 }
 
