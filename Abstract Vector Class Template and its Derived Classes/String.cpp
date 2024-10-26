@@ -175,6 +175,7 @@ String& String::append(const char* s) {
 	return *this;
 }
 
+
 // String String :: operator+(const String& Str) {
 // 	String temp;
 // 	int new_size = size + Str.size;
@@ -192,6 +193,25 @@ String& String::append(const char* s) {
 
 // 	return temp;
 // }
+
+String& operator+(const basic_vec<char>& vv) {
+	String temp;
+	int new_size = this->size + vv.size;
+	temp.ptr = new char[ new_size+ 1];
+	temp.size = new_size;
+	for(int i=0;i < this->size;i++)
+	{
+		temp.ptr[i] = ptr[i];
+	}
+	for (int i = this->size; i < new_size; i++)
+	{
+		temp.ptr[i] = vv.ptr[i - this->size];
+	}
+	temp.ptr[new_size] = '\0';
+
+	return temp;
+}
+
 
 String& String::operator+=(const String& Str)
 {
