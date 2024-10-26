@@ -5,13 +5,13 @@
 String ::~String(){}
 String& String::operator+(const basic_vec<char> &vv){
 	static String temp;
-	temp.resize(this->Size()+vv.Size());
-	for(int i=0;i<this->Size();i++){
-		cout<<"chishi\n";
+	int this_size=this->Size(),vv_size= vv.Size();
+	temp.resize(this_size+vv_size);
+	for(int i=0;i<this_size;i++){
 		temp[i]=this->operator[](i);//chou lou de xie fa
 	}
-	for(int i=this->Size();i<this->Size()+vv.Size();i++){
-		temp[i]=vv[i];	
+	for(int i=this_size;i<this_size+vv_size;i++){
+		temp[i]=vv[i-this_size];	
 	}
 	return temp;
 }
@@ -94,6 +94,16 @@ String& String::insert(int p0, const char* s)// �� s ��ָ����ַ�
 	}
 	p[new_size] = '\0';
 
+
+
+
+
+//看清楚了
+	this->size=new_size;//记得更新size大小，
+
+
+
+
 	delete[] ptr;				// �ͷ�ԭ�ַ���
 	ptr = p;					// �������ַ������׵�ַ
 	return *this;
@@ -140,7 +150,8 @@ void String::swap(String& Str)
 
 void String::clear()
 {
-	*this = "\0";
+
+	*this = "\0";//这么写能行还多亏了转换
 }
 String& String::append(const char* s) {
 	if (s == nullptr) return *this; 
@@ -264,7 +275,7 @@ void input(int& op) {
 	{
 		std::cout << "Invalid input. Please enter a number." << endl;
 		std::cin.clear();            // ��������״̬λ
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ������Ч����
+		//std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ������Ч����
 		std::cin >> op;
 	}
 }

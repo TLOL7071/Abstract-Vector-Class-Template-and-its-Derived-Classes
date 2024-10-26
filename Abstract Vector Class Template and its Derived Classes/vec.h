@@ -57,7 +57,6 @@ basic_vec<T>::basic_vec(const basic_vec<T>& v)
 template <typename T>
 basic_vec<T>::~basic_vec()						
 {
-	
 	if (ptr != NULL) delete[] ptr;
 }
 
