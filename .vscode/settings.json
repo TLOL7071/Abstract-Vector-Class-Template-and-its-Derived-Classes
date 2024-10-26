@@ -1,0 +1,29 @@
+{
+    "files.associations": {
+        "charconv": "cpp",
+        "atomic": "cpp",
+        "*.tcc": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp",
+        "random": "cpp",
+        "format": "cpp",
+        "ostream": "cpp",
+        "istream": "cpp",
+        "type_traits": "cpp",
+        "array": "cpp",
+        "bit": "cpp",
+        "deque": "cpp",
+        "algorithm": "cpp",
+        "memory_resource": "cpp",
+        "memory": "cpp",
+        "initializer_list": "cpp",
+        "span": "cpp",
+        "stdexcept": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp",
+        "new": "cpp",
+        "iostream": "cpp"
+    }
+}

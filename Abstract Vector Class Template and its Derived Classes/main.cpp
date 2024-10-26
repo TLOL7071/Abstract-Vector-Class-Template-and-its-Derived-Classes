@@ -1,6 +1,12 @@
 #include "Vector.h"
 // #include "vec.h"
+#include "String.h"
 int main(){
+    String dsd;
+    String ass;
+    dsd + ass;
+    //String sa;
+    //dsd+sa;
    // 测试默认构造函数
     Vector<int> vecDefault;
     cout << "Default Vector: ";
@@ -9,7 +15,7 @@ int main(){
     }
     cout << vecDefault << endl;
     // 测试带初始容量的构造函数
-    Vector<int> vecCapacity(5);
+    Vector<int> vecCapacity(5);   
     for (int i = 0; i < 5; ++i) {
         vecCapacity.push(i * 10);
     }
@@ -44,6 +50,9 @@ int main(){
     // 测试删除功能
     vecDefault.Delete(4, 6);
     cout << "vecDefault after deleting element from position 4: " << vecDefault << endl;
+
+    vecDefault.Delete(1);
+    cout<<vecDefault<<endl;
 
     cin.get();
     //测试交换功能
