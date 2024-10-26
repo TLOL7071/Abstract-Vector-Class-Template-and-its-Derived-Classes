@@ -43,6 +43,11 @@ public:
 
 };
 
+// template <typename type>
+// ostream& operator<<(ostream& os, Vector<type>& vec);
+void testVector();
+
+
 template <typename type>
 Vector<type> ::Vector():basic_vec<type>(0)             //构造函�?1
 {
@@ -327,7 +332,11 @@ void Vector<type>::Delete(int n)
     {
         this->ptr[i] = this->ptr[i + 1];
     }
+
     //this->ptr[size] = 0;
+
+    //this->p[size] = 0;
+
 }
 template<typename type>                 //ɾȥnС�괦�����n��Ԫ��
 void Vector<type>::Delete(int n, int m)

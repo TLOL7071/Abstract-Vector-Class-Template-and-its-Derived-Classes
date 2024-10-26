@@ -2,98 +2,133 @@
 #include "String.h"
 #include <cstring>
 using namespace std;
+void test1();
+void test2();
+void test3();
+void test4();
+void test5();
+void test6();
+void test7();
+void testString() {
 
-void testStringFunctions() {
     String str1, str2, result;
     int choice;
-
     do {
         cout << "请选择要测试的功能：" << endl;
-        cout << "1. 输入字符串" << endl;
-        cout << "2. 输出字符串" << endl;
-        cout << "3. 插入字符串" << endl;
-        cout << "4. 查找字符串" << endl;
-        cout << "5. 字符串拼接" << endl;
-        cout << "6. 清空字符串" << endl;
+        cout << "1. 测试构造函数" << endl;
+        cout << "2. 测试连接" << endl;
+        cout << "3. 测试插入" << endl;
+        cout << "4. 测试查找" << endl;
+        cout << "5. 测试清空" << endl;
+        cout << "6. 测试异常处理" << endl;
+        cout << "7.测试派生类函数" << endl;
         cout << "0. 退出" << endl;
         cout << "输入你的选择: ";
-        cin >> choice;
-
+        input(choice);
         switch (choice) {
         case 1:
-            cout << "请输入一个字符串: ";
-            cin >> str1;
+            test1();
             break;
-
         case 2:
-            cout << "当前字符串为: ";
-            str1.Output(cout);
-            cout << endl;
+            test2();
             break;
-
         case 3: {
-            char insertStr[1024];
-            cout << "请输入要插入的字符串: ";
-            cin >> insertStr;
-            cout << "size:" << strlen(insertStr) << " " << str1.length() << endl;
-            int position;
-            cout << "请输入插入位置: ";
-            cin >> position;
-            str1.insert(position, insertStr);
-            cout << "插入后的字符串：" << endl;
-            cout << str1 << endl;
-            cout << "size:" << str1.length() << endl;
+            test3();
             break;
         }
-
         case 4: {
-            char findStr[1024];
-            cout << "请输入要查找的字符串: ";
-            cin >> findStr;
-            String strToFind(findStr);
-            int position = str1.find(strToFind);
-            if (position != -1) {
-                cout << "字符串 '" << findStr << "' 在位置 " << position << " 找到。" << endl;
-            }
-            else {
-                cout << "字符串 '" << findStr << "' 未找到。" << endl;
-            }
+            test4();
             break;
         }
-
         case 5: {
-            char appendStr[1024];
-            cout << "请输入要拼接的字符串: ";
-            cin >> appendStr;
-            str1.append(appendStr);
-            cout << "拼接后的字符串为: ";
-            str1.Output(cout);
-            cout << endl;
+            test5();
             break;
         }
-
         case 6:
-            str1.clear();
-			cout << "str1=\""<< str1 << "\"" << endl;
-            cout << "字符串已清空。" << endl;
+            test6();
             break;
-
+        case 7:
+            test7();
+            break;
         case 0:
-            cout << "退出程序。" << endl;
+            cout << "退出程序";
             break;
-
         default:
             cout << "无效的选择，请重新输入。" << endl;
         }
     } while (choice != 0);
 }
-
-int main() {
-    testStringFunctions();
-	/*string str1("hello");
-	string str2("world");
-	string str3 = str1 + str2;
-	cout << str3 << endl;*/
-
-    return 0;
+void test1() {
+    basic_vec<char>* pStr; //积累指针
+    String str1("Hello, ");
+    String str2("World!");
+    pStr = &str1;
+    cout << "str1: ";
+    pStr->Output(cout);
+    pStr = &str2;
+    cout << "str2: ";
+    pStr->Output(cout);
+    cout << endl;
 }
+void test2() {
+    basic_vec<char>* pStr; //积累指针
+    String str1("Hello, ");
+    String str2("World!");
+    String str3 = str1 + str2;
+	cout << "str1: " << str1 << endl;
+	cout << "str2: " << str2 << endl;
+    cout << "str3 (str1 + str2): ";
+    str3.Output(cout);
+	cout << endl;
+
+    cout << "测试append函数：" << endl;
+    str1.append("world");
+    cout << "str1：" << str1 << endl;
+
+}
+void test3() {
+    basic_vec<char>* pStr; //积累指针
+    String str1("Hllo");
+    str1.Output(cout);
+	cout << endl;
+    str1.insert(1, "e");
+    cout << "After insert: ";
+    str1.Output(cout);
+}
+void test4() {
+    String str1("Hello");
+    cout << "str为：";
+    str1.Output(cout);
+    cout << endl;
+    int pos = str1.find("l");
+    cout << "l的位置是：" << pos << endl;
+}
+void test5() {
+    String str1("Hello");
+    cout << "str为：";
+    str1.Output(cout);
+    cout << endl;
+    cout << "str长度为：" << str1.length() << endl;
+    str1.clear();
+    cout << "清空后长度为：" << str1.length() << endl;
+}
+void test6() {
+    try {
+        String str1("Hello");
+        cout << str1[5];// 应该抛出异常
+    }
+    catch (const char* e) {
+        cout << "抛出异常： " << e << endl;
+    }
+}
+void test7() {
+    cout << "使用基类指针调用Input:" << endl;
+    basic_vec<char>* p;
+    String str1;
+    p = &str1;
+    p->Input(cin);
+    cout << "调用Output:" << endl;
+    p->Output(cout);
+    cout << endl;
+}
+

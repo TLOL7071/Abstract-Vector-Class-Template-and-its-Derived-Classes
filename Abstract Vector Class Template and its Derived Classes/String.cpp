@@ -73,16 +73,27 @@ void String::Output(ostream& out) const
 
 
 
-String& String::insert(int p0, const char* s)
+String& String::insert(int p0, const char* s)// �� s ��ָ����ַ��������ڱ���λ�� p0���±�Ϊp0��֮ǰ
 {
 	int n = size;
+	int new_size = size + strlen(s);
 	if (p0 > n) p0 = n;
-	char* p = new char[size + strlen(s) + 1];
-	strncpy(p, ptr, p0);		// ԭ�ַ������ݵĵ�һ����
-	p[p0] = '\0';
-	strcat(p, s);				// ����Ĳ���
-	strcat(p, ptr + p0);		// ԭ�ַ�����ʣ�ಿ��
-	size = size + strlen(s);
+	if (p0 < 0) p0 = 0;
+	char* p = new char[new_size + 1];
+	for (int i = 0; i < p0; i++)
+	{
+		p[i] = ptr[i];	
+	}
+	for (int i = p0; i < p0 + strlen(s); i++)
+	{
+		p[i] = s[i - p0];
+	}
+	for (int i = p0 + strlen(s); i < new_size; i++)
+	{
+		p[i] = ptr[i - strlen(s)];
+	}
+	p[new_size] = '\0';
+
 	delete[] ptr;				// �ͷ�ԭ�ַ���
 	ptr = p;					// �������ַ������׵�ַ
 	return *this;
@@ -132,31 +143,44 @@ void String::clear()
 	*this = "\0";
 }
 String& String::append(const char* s) {
-	if (s == nullptr) return *this; // Handle null input
+	if (s == nullptr) return *this; 
 
 	int new_size = size + strlen(s);
-	char* new_ptr = new char[new_size + 1]; // Allocate new memory
+	char* new_ptr = new char[new_size + 1];
+	for (int i = 0; i < size; i++)
+	{
+		new_ptr[i] = ptr[i];
+	}
+	for (int i = size; i < new_size; i++)
+	{
+		new_ptr[i] = s[i - size];
+	}
+	new_ptr[new_size] = '\0';
 
-	strcpy(new_ptr, ptr); // Copy the existing string
-	strcat(new_ptr, s);   // Append the new string
-
-	delete[] ptr; // Free the old memory
-	ptr = new_ptr; // Update the pointer to the new memory
-	size = new_size; // Update the size
+	delete[] ptr; 
+	ptr = new_ptr; 
+	size = new_size;
 
 	return *this;
 }
 
-
-// String operator+(const String& Str1, const String& Str2) {
+// String String :: operator+(const String& Str) {
 // 	String temp;
-// 	temp.ptr = new char[Str1.size + Str2.size + 1];
-// 	temp.size = Str1.size + Str2.size;
-// 	strcpy(temp.ptr, Str1.ptr);
-// 	strcat(temp.ptr, Str2.ptr);
+// 	int new_size = size + Str.size;
+// 	temp.ptr = new char[ new_size+ 1];
+// 	temp.size = size + Str.size;
+// 	for(int i=0;i < size;i++)
+// 	{
+// 		temp.ptr[i] = ptr[i];
+// 	}
+// 	for (int i = size; i < new_size; i++)
+// 	{
+// 		temp.ptr[i] = Str.ptr[i - size];
+// 	}
+// 	temp.ptr[new_size] = '\0';
+
 // 	return temp;
 // }
-
 
 String& String::operator+=(const String& Str)
 {
@@ -232,4 +256,15 @@ String& String::trim()
 		ptr = temp;
 	}
 	return *this;
+}
+
+void input(int& op) {
+	std::cin >> op;
+	while (std::cin.fail())                //��ֹ�������롣
+	{
+		std::cout << "Invalid input. Please enter a number." << endl;
+		std::cin.clear();            // ��������״̬λ
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // ������Ч����
+		std::cin >> op;
+	}
 }

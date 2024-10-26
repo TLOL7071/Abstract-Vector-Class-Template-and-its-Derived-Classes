@@ -30,7 +30,6 @@ public:
 	String& operator+=(const String& Str);			// �ַ���ƴ�Ӽ���ֵ
 	
 	String & operator+(const basic_vec<char> &vv);
-
 	// ���ع�ϵ����
 	friend bool operator==(const String& Str1, const String& Str2);
 	friend bool operator!=(const String& Str1, const String& Str2);
@@ -44,6 +43,8 @@ public:
 	String& trim();								// ɾ���ַ���ǰ��Ŀհף��ո��Ʊ����ַ�
 };
 
+void testString();
+void input(int& op);
 #endif
 
 #pragma once
