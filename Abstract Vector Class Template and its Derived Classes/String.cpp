@@ -151,18 +151,18 @@ String& String::append(const char* s) {
 	return *this;
 }
 
-String String :: operator+(const String& Str) {
+String& operator+(const basic_vec<char>& vv) {
 	String temp;
-	int new_size = size + Str.size;
+	int new_size = this->size + vv.size;
 	temp.ptr = new char[ new_size+ 1];
-	temp.size = size + Str.size;
-	for(int i=0;i < size;i++)
+	temp.size = new_size;
+	for(int i=0;i < this->size;i++)
 	{
 		temp.ptr[i] = ptr[i];
 	}
-	for (int i = size; i < new_size; i++)
+	for (int i = this->size; i < new_size; i++)
 	{
-		temp.ptr[i] = Str.ptr[i - size];
+		temp.ptr[i] = vv.ptr[i - this->size];
 	}
 	temp.ptr[new_size] = '\0';
 
