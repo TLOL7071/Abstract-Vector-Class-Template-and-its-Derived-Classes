@@ -37,8 +37,8 @@ public:
     void swap(Vector<type>& vec);
 
 
-    basic_vec<type>& operator+(const basic_vec<type> & vec);//二选一
-    //Vector& operator+(const basic_vec<type> &v);//��ѡһ
+    //basic_vec<type>& operator+(const basic_vec<type> & vec);//二选一
+    Vector& operator+(const basic_vec<type> &v);//��ѡһ
 
 
 };
@@ -214,30 +214,32 @@ type& Vector<type>:: operator[](int i)
     if(i>=this->size||i<0) throw(char)0;       //al:新�?�越界�?�问异常处理(english version:Add out-of-bounds access exception handling.)
     return this->ptr[i];
 }
-template<typename type>             //��+���أ�ʵ��vec1+vec2����vec3�����и�Ԫ��Ϊ��Ӻ���?
-basic_vec<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
+// template<typename type>             //��+���أ�ʵ��vec1+vec2����vec3�����и�Ԫ��Ϊ��Ӻ���?
+// basic_vec<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
+// {
+//     if(this->size!=vec.Size())
+//         throw "different size";
+//     static Vector<type> tempt;
+//     
+//     for(int i=0;i<vec.Size();i++)
+//     {
+//         tempt.ptr[i]+=vec[i];
+//     }
+//     return tempt;
+// }
+template<typename type>             
+Vector<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
 {
     if(this->size!=vec.Size())
         throw "different size";
-    static Vector<type> tempt(*this);
+    static Vector<type> tempt;
+    tempt = *this;
     for(int i=0;i<vec.Size();i++)
     {
         tempt.ptr[i]+=vec[i];
     }
     return tempt;
 }
-// template<typename type>             
-// Vector<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
-// {
-//     if(this->size!=vec.size)
-//         throw "different size";
-//     static Vector<type> tempt(*this);
-//     for(int i=0;i<vec.size;i++)
-//     {
-//         tempt.ptr[i]+=vec.ptr[i];
-//     }
-//     return tempt;
-// }
 template<typename type>                     //�Ժ�׺�����?++���أ�ʵ�ַ���++ǰ�Ķ���֮���ٶԲ�������ȫ��Ԫ�ؼ�1
 Vector<type> & Vector<type>:: operator++(int)//��Ӽ�?
     {

@@ -7,28 +7,31 @@ using namespace std;
 class String : public basic_vec <char>
 {
 public:
-	String(const char* str = "");						// ¹¹Ôìº¯Êý
+	~String();
+	String(const char* str = "");						// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
+	
 
-
-	//¼Ì³Ð¶àÌ¬ÐÔ
+	//ï¿½Ì³Ð¶ï¿½Ì¬ï¿½ï¿½
 	void Input(istream& in);
 	void Output(ostream& out) const;
 	
 	
-	//¹¦ÄÜº¯Êý
-	String& insert(int p0, const char* s);			// ½« s ËùÖ¸ÏòµÄ×Ö·û´®²åÈëÔÚ±¾´®Î»ÖÃ p0 Ö®Ç°
-	int find(const String& Str) const;				// ²éÕÒ²¢·µ»Ø Str ÔÚ±¾´®ÖÐµÚÒ»´Î³öÏÖµÄÎ»ÖÃ
-	int length() const;							// ·µ»Ø´®µÄ³¤¶È£¨×Ö·û¸öÊý£©
-	const char* c_str();							// ×ª»»Îª C-×Ö·û´®
-	void swap(String& Str);							// ½«±¾´®Óë Str ½»»»
-	void clear();									// Çå¿ÕString
-	String& append(const char* s);                  //Ïò×Ö·û´®µÄÄ©Î²Ìí¼Ó×Ö·û
+	//ï¿½ï¿½ï¿½Üºï¿½ï¿½ï¿½
+	String& insert(int p0, const char* s);			// ï¿½ï¿½ s ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½Î»ï¿½ï¿½ p0 Ö®Ç°
+	int find(const String& Str) const;				// ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ Str ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ò»ï¿½Î³ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½
+	int length() const;							// ï¿½ï¿½ï¿½Ø´ï¿½ï¿½Ä³ï¿½ï¿½È£ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	const char* c_str();							// ×ªï¿½ï¿½Îª C-ï¿½Ö·ï¿½ï¿½ï¿½
+	void swap(String& Str);							// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Str ï¿½ï¿½ï¿½ï¿½
+	void clear();									// ï¿½ï¿½ï¿½String
+	String& append(const char* s);                  //ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ä©Î²ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 
-	//ÔËËã·ûº¯Êý
-	friend String operator+(const String& str1, const String& Str2); // ÓÑÔªº¯Êý£¬×Ö·û´®Æ´½Ó
-	String& operator+=(const String& Str);			// ×Ö·û´®Æ´½Ó¼°¸³Öµ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	//friend String operator+(const String& str1, const String& Str2); // ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Æ´ï¿½ï¿½
+	String& operator+=(const String& Str);			// ï¿½Ö·ï¿½ï¿½ï¿½Æ´ï¿½Ó¼ï¿½ï¿½ï¿½Öµ
+	
+	String & operator+(const basic_vec<char> &vv);
 
-	// ÖØÔØ¹ØÏµÔËËã
+	// ï¿½ï¿½ï¿½Ø¹ï¿½Ïµï¿½ï¿½ï¿½ï¿½
 	friend bool operator==(const String& Str1, const String& Str2);
 	friend bool operator!=(const String& Str1, const String& Str2);
 	friend bool operator> (const String& Str1, const String& Str2);
@@ -36,9 +39,9 @@ public:
 	friend bool operator< (const String& Str1, const String& Str2);
 	friend bool operator<=(const String& Str1, const String& Str2);
 	
-	// ¸½¼ÓµÄ³ÉÔ±º¯Êý
-	friend istream& getline(istream& in, String& Str, int num, char delim = '\n');
-	String& trim();								// É¾³ý×Ö·û´®Ç°ºóµÄ¿Õ°×£¨¿Õ¸ñ¡¢ÖÆ±í£©×Ö·û
+	// ï¿½ï¿½ï¿½ÓµÄ³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½
+	//friend istream& getline(istream& in, String& Str, int num, char delim);
+	String& trim();								// É¾ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ä¿Õ°×£ï¿½ï¿½Õ¸ï¿½ï¿½Æ±ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
 };
 
 #endif
