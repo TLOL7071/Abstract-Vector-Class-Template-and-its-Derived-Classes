@@ -7,7 +7,7 @@ String& String::operator+(const basic_vec<char> &vv){
 	static String temp;
 	temp.resize(this->Size()+vv.Size());
 	for(int i=0;i<this->Size();i++){
-		cout<<"chishi";
+		cout<<"chishi\n";
 		temp[i]=this->operator[](i);//chou lou de xie fa
 	}
 	for(int i=this->Size();i<this->Size()+vv.Size();i++){

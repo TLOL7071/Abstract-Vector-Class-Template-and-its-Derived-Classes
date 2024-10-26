@@ -236,7 +236,7 @@ template<typename type>
 Vector<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
 {
     if(this->size!=vec.Size())
-        throw "different size";
+        throw "different size!!!";
     static Vector<type> tempt;
     tempt = *this;
     for(int i=0;i<vec.Size();i++)
