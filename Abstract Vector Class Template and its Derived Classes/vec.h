@@ -12,11 +12,13 @@ public:
     virtual ~basic_vec();
     basic_vec& operator=(const basic_vec& v);	
 
-    int Size();
+    int Size() const;
 	void resize(int num);
-    T & operator[](int);
+    T & operator[](int)const;
     virtual void Input(istream& in) = 0;
     virtual void Output(ostream& out) const = 0 ;//纯虚函数，记得在派生类中重新定义
+	virtual basic_vec& operator+(const basic_vec<T> & vv)=0;
+
 
 protected:
 	int size;
@@ -72,7 +74,7 @@ basic_vec<T>& basic_vec<T>::operator=(const basic_vec<T>& v)
 
 
 template<typename T>
-int basic_vec<T>::Size(){
+int basic_vec<T>::Size()const{
     return size;
 }
 
@@ -100,7 +102,7 @@ void basic_vec<T>::resize(int num)
 
 
 template<typename T>
-T & basic_vec<T>::operator[](int pos){
+T & basic_vec<T>::operator[](int pos)const{
     if(pos>=size || pos<0)
         throw "yuejie";
     return ptr[pos];

@@ -11,44 +11,40 @@ public:
     void Input(istream & in);
     void Output(ostream & out) const ;
     void reserve(int n);
-    Vector();                                  //构造函数1  将capacity设为15,p指向type类型的数组头
-    Vector(int n);                              //构造函数2  将capacity设为n*2，
-    Vector(int n, type m);                      //构造函数3  将capacity设为n*2,将前n个内容赋为type m
-    Vector(Vector<type>& a);                    //复制构造函数 利用copy函数复制数据，但具体支持的数据类型不清楚，基本的int double等应该是可以的，但不知道struct 和class 效果怎么样//al:对class也有用(english version:Also applicable to class type)
-    explicit Vector(type* p1, type* p2);         //将type类型数组的p1和p2之间的数据复制，两者顺序可以颠倒，还有这是要显式调用的
+    Vector();                                  //构造函�?1  将capacity设为15,p指向type类型的数组头
+    Vector(int n);                              //构造函�?2  将capacity设为n*2�?
+    Vector(int n, type m);                      //构造函�?3  将capacity设为n*2,将前n�?内�?�赋为type m
+    Vector(Vector<type>& a);                    //复制构造函�? 利用copy函数复制数据，但具体�?持的数据类型不清楚，基本的int double等应该是�?以的，但不知道struct 和class 效果怎么�?//al:对class也有�?(english version:Also applicable to class type)
+    explicit Vector(type* p1, type* p2);         //将type类型数组的p1和p2之间的数�?复制，两者顺序可以�?�倒，还有这是要显式调用的
     ~Vector();
-    bool empty();                               //判断是否为空，空返回true
+    bool empty();                               //判断�?否为空，空返回true
     int Capacity();                             //返回capacity
     int Size();
-    void pop();//弹出最后一个数据成员，希望对这个函数重写一遍，结合capacity，size，          //al:试着完成了(english version:have tried to solve the problem.)
-    void push(type a);                          //将type a加入vector的末尾， 当容量capacity不足以存储时，扩容，希望对扩容功能加以检测   //al:加了一个检测，但不知道你想在哪里检测。
-    type at(int i);//返回vector中第i位的数据，对i越界的异常处理没有写完，希望补全
+    void pop();//弹出最后一�?数据成员，希望�?�这�?函数重写一遍，结合capacity，size�?          //al:试着完成�?(english version:have tried to solve the problem.)
+    void push(type a);                          //将type a加入vector的末尾， 当�?�量capacity不足以存储时，扩容，希望对扩容功能加以�?��?   //al:加了一�?检测，但不知道你想在哪里�?�测�?
+    type at(int i);//返回vector�?第i位的数据，�?�i越界的异常�?�理没有写完，希望补�?
 
-    Vector & operator=(const Vector<type>& vec); //赋值运算符号，希望检测
-    type& operator[](int i) ;//下表运算符，但没有越界处理//al:加入了越界处理
-    Vector operator+(const Vector<type>& vec);
-    Vector& operator++(int);//希望加入对数据类型的判断，以避免数据不满足++运算操作
+    Vector & operator=(const Vector<type>& vec); //赋值运算�?�号，希望�?��?
+    type& operator[](int i) ;//下表运算符，但没有越界�?�理//al:加入了越界�?�理
+    Vector& operator++(int);//希望加入对数�?类型的判�?，以避免数据不满�?++运算操作
     Vector& operator++();
 
-    void free2();                               //将容量变为size大小，及舍弃未利用的空间
+    void free2();                               //将�?�量变为size大小，及舍弃�?利用的空�?
     void insert(int position, type n);
     void insert(int position, type n, int m);
     void Delete(int n);
     void Delete(int n, int m);
     void swap(Vector<type>& vec);
 
-    //friend ostream& operator<<(ostream& os, Vector<type>& vec);
-    //friend istream& operator>>(istream& os, Vector<type>& vec);//以回车为结束标记，空格为区分符号
+
+    basic_vec<type>& operator+(const basic_vec<type> & vec);//二选一
+    //Vector& operator+(const basic_vec<type> &v);//��ѡһ
+
+
 };
-// template <typename type>
-// istream& operator>>(istream& is, Vector<type>& vec);
-
-// template <typename type>
-// ostream& operator<<(ostream& os, Vector<type>& vec);
-
 
 template <typename type>
-Vector<type> ::Vector():basic_vec<type>(0)             //构造函数1
+Vector<type> ::Vector():basic_vec<type>(0)             //构造函�?1
 {
     capacity = 15;
     this->ptr = new type[capacity]();
@@ -60,7 +56,7 @@ Vector<type>::Vector(int n):basic_vec<type>()           //���캯��2
     capacity = n * 2;
 }
 template <typename type>                //���캯��3
-void Vector<type>::reserve(int n)             //修改记得
+void Vector<type>::reserve(int n)             //�?改�?�得
 {
     if(n<0){
         throw "n<0";
@@ -84,7 +80,7 @@ template<typename type>                 //�������캯��6
 Vector<type>::Vector(Vector<type>& a):basic_vec<type>(a)
 {
     this->ptr = new type[a.size * 2]();
-    //copy(a.p, a.p + a.size, p);                        //copy是浅拷贝，这里用type类型对应的深拷贝比较好
+    //copy(a.p, a.p + a.size, p);                        //copy�?浅拷贝，这里用type类型对应的深拷贝比较�?
     for (int i = 0; i < a.size; i++)
     {
         this->ptr[i] = a.ptr[i];                                   //对应type类型重载=来实现深拷贝
@@ -140,13 +136,13 @@ int Vector<type>::Size()
 {
     return this->size;
 }
-template<typename type>                 //ɾ�����һ��Ԫ������ǰvectorΪ�գ���ӡerror
+template<typename type>                 //ɾ�����һ���?������ǰvectorΪ�գ���ӡerror
 void Vector<type>::pop()
 {
     if (this->size >= 1)
     {
         if constexpr (!std::is_trivially_destructible<type>::value) {
-            this->ptr[this->size - 1].~T();  //若type为类弹出后执行它的析构函数(english version:If the type is a class, its destructor is executed after popping.)
+            this->ptr[this->size - 1].~T();  //�?type为类弹出后执行它的析构函�?(english version:If the type is a class, its destructor is executed after popping.)
         }
         this->size--;
         if (this->size <= capacity / 4) {
@@ -157,7 +153,7 @@ void Vector<type>::pop()
                 tempt[i] = this->ptr[i];
             }
             delete[]this->ptr;
-            this->ptr = tempt; /*al:按照要求对利用capacity和size重写了，不过感觉没什么必要，如果你也认为这个缩小vector没必要的话，就删除这一段吧。(english version : According to the requirements,
+            this->ptr = tempt; /*al:按照要求对利用capacity和size重写了，不过感�?�没什么必要，如果你也认为这个缩小vector没必要的话，就删除这一段吧�?(english version : According to the requirements,
                        I rewrote it using capacity and size, but I don't think it's necessary. If you also believe that this resizing of the vector is unnecessary, feel free to delete that part.)*/
         }
         
@@ -167,7 +163,7 @@ void Vector<type>::pop()
         cout << "error";
     }
 }
-template<typename type>                 //��˳�����Ԫ�أ�
+template<typename type>                 //��˳������?�أ�
 void Vector<type>::push(type a)
 {
     if (this->size == this->capacity)
@@ -215,23 +211,35 @@ Vector<type>& Vector<type>::  operator=(const Vector<type>& vec)
 template<typename type>             //��[]���أ�ʵ��vec[i]���±�Ϊi
 type& Vector<type>:: operator[](int i)
 {
-    if(i>=this->size||i<0) throw(char)0;       //al:新增越界访问异常处理(english version:Add out-of-bounds access exception handling.)
+    if(i>=this->size||i<0) throw(char)0;       //al:新�?�越界�?�问异常处理(english version:Add out-of-bounds access exception handling.)
     return this->ptr[i];
 }
-template<typename type>             //��+���أ�ʵ��vec1+vec2����vec3�����и�Ԫ��Ϊ��Ӻ���
-Vector<type> Vector<type>:: operator+(const Vector<type>& vec)
+template<typename type>             //��+���أ�ʵ��vec1+vec2����vec3�����и�Ԫ��Ϊ��Ӻ���?
+basic_vec<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
 {
-    if(this->size!=vec.size)
+    if(this->size!=vec.Size())
         throw "different size";
-    Vector<type> tempt(*this);
-    for(int i=0;i<vec.size;i++)
+    static Vector<type> tempt(*this);
+    for(int i=0;i<vec.Size();i++)
     {
-        tempt.ptr[i]+=vec.ptr[i];
+        tempt.ptr[i]+=vec[i];
     }
     return tempt;
 }
-template<typename type>                     //�Ժ�׺�����++���أ�ʵ�ַ���++ǰ�Ķ���֮���ٶԲ�������ȫ��Ԫ�ؼ�1
-Vector<type> & Vector<type>:: operator++(int)//��Ӽ�
+// template<typename type>             
+// Vector<type>& Vector<type>:: operator+(const basic_vec<type>& vec)
+// {
+//     if(this->size!=vec.size)
+//         throw "different size";
+//     static Vector<type> tempt(*this);
+//     for(int i=0;i<vec.size;i++)
+//     {
+//         tempt.ptr[i]+=vec.ptr[i];
+//     }
+//     return tempt;
+// }
+template<typename type>                     //�Ժ�׺�����?++���أ�ʵ�ַ���++ǰ�Ķ���֮���ٶԲ�������ȫ��Ԫ�ؼ�1
+Vector<type> & Vector<type>:: operator++(int)//��Ӽ�?
     {
         static Vector<type> tp(*this);
         static_assert(std::is_arithmetic<type>::value,"Vector element must be of arithmetic type" );
@@ -241,7 +249,7 @@ Vector<type> & Vector<type>:: operator++(int)//��Ӽ�
         }
         return tp;
     }
-template<typename type>                     //��ǰ׺�����++���أ�ʵ���ȶԲ�������ȫ��Ԫ�ؼ�1���󷵻�++��Ķ���
+template<typename type>                     //��ǰ׺�����?++���أ�ʵ���ȶԲ�������ȫ��Ԫ�ؼ�1���󷵻�++��Ķ���?
 Vector<type>& Vector<type>:: operator++()//ǰ�Ӽ�
 {
     for (int i = 0; i < this->size; i++)
@@ -250,8 +258,8 @@ Vector<type>& Vector<type>:: operator++()//ǰ�Ӽ�
     }
     return *this;
 }
-template<typename type>                     //ͨ������vector.size��С�����飬��ԭ����Ǩ�ƣ���delete��ԭ������Ŀռ�
-void Vector<type>::free2()                 //��ɶ�size��ռ�����
+template<typename type>                     //ͨ������vector.size��С�����飬��ԭ����Ǩ�ƣ���delete��ԭ������Ŀռ�?
+void Vector<type>::free2()                 //��ɶ�size��ռ�����?
 {
     type* temp = new type(this->size);
     for (int i = 0; i < this->size; i++)
@@ -315,9 +323,9 @@ void Vector<type>::Delete(int n)
     this->size--;
     for (int i = n; i < this->size; i++)
     {
-        this->p[i] = this->p[i + 1];
+        this->ptr[i] = this->ptr[i + 1];
     }
-    this->p[size] = 0;
+    //this->ptr[size] = 0;
 }
 template<typename type>                 //ɾȥnС�괦�����n��Ԫ��
 void Vector<type>::Delete(int n, int m)
